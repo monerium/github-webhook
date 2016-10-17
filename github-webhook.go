@@ -26,7 +26,6 @@ type Event struct {
 }
 
 func CorrectSignature(signature, message, key []byte) bool {
-
 	mac := hmac.New(sha1.New, key)
 	mac.Write(message)
 	expected := mac.Sum(nil)
@@ -35,7 +34,6 @@ func CorrectSignature(signature, message, key []byte) bool {
 }
 
 func main() {
-
 	secret := os.Getenv("SECRET_KEY")
 
 	if secret == "" {
@@ -47,21 +45,17 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
 		b, err := ioutil.ReadAll(r.Body)
-
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		signature := strings.TrimLeft(r.Header.Get("X-Hub-Signature"), "sha1=")
-
 		s, err := hex.DecodeString(signature)
-
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		if CorrectSignature(s, b, []byte(secret)) {
-
 			_, err = io.Copy(os.Stdout, bytes.NewReader(b))
 			if err != nil {
 				log.Fatal(err)
