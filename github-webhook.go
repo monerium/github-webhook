@@ -1,17 +1,17 @@
 package main
 
 import (
-	"os"
-	"io"
 	"bytes"
-	"fmt"
-	"log"
-	"strings"
-	"net/http"
-	"io/ioutil"
 	"crypto/hmac"
 	"crypto/sha1"
 	"encoding/hex"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
+	"strings"
 )
 
 type Commit struct {
@@ -52,7 +52,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		signature :=  strings.TrimLeft(r.Header.Get("X-Hub-Signature"), "sha1=")
+		signature := strings.TrimLeft(r.Header.Get("X-Hub-Signature"), "sha1=")
 
 		s, err := hex.DecodeString(signature)
 
