@@ -35,9 +35,13 @@ func CorrectSignature(signature, message, key []byte) bool {
 
 func main() {
 	secret := os.Getenv("SECRET_KEY")
-
 	if secret == "" {
 		log.Fatal("The SECRET_KEY environment variable is not set")
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		log.Fatal("The PORT environment variable is not set")
 	}
 
 	fmt.Fprintln(os.Stderr, "Hello, 世界")
@@ -67,5 +71,5 @@ func main() {
 		}
 	})
 
-	log.Fatal(http.ListenAndServe(":4001", nil))
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
