@@ -53,7 +53,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		signature := strings.TrimLeft(r.Header.Get("X-Hub-Signature"), "sha1=")
+		signature := strings.TrimPrefix(r.Header.Get("X-Hub-Signature"), "sha1=")
 		s, err := hex.DecodeString(signature)
 		if err != nil {
 			log.Fatal(err)
